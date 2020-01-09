@@ -1,0 +1,28 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>{{ post.title }}</h1>
+
+  <p><strong>Post date</strong>{{ post.created }}</p>
+  <p><strong>Author: <a href="{{ post.author.author.get_absolute_url }}">{{ post.author.username }}</a> </strong>
+  <p><strong>Description:</strong></p>
+  <p>
+    {{ post.description }}
+  </p>
+
+  <div style="margin-left:20px;margin-top:20px">
+    <h4>Comments</h4>
+
+    {% for comment in post.comment_set.all %}
+      <hr>
+      <p>{{ comment.author.username }} ({{ comment.post_date }}) - {{ comment.description }}</p>
+    {% endfor %}
+    <hr>
+    {% if user.is_authenticated %}
+      <p><a href="{% url 'comment-create' post.pk %}">Add a new comment</a> </p>
+    {% else %}
+      <p><a href="{% url 'login' %}?next={{request.path}}">Login</a> to add a new comment</p>
+    {% endif %}
+
+  </div>
+{% endblock %}

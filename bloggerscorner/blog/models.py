@@ -48,7 +48,7 @@ class Post(models.Model):
         verbose_name_plural = 'Записи'
 
     def get_absolute_url(self):
-        return reverse('post-details', args=[str(self.id)])
+        return reverse('post-detail', args=[str(self.id)])
 
 
 class Comment(models.Model):
